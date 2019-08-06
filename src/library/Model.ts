@@ -35,6 +35,11 @@ class Model<T extends ModelDocument> {
     public static path: string;
 
     /**
+     * Path for the current resource.
+     */
+    protected path?: string;
+
+    /**
      * Data entry.
      */
     public entry: T;
