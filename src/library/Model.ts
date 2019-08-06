@@ -16,7 +16,9 @@ class Model<T extends ModelDocument> {
     /**
      * Fetch a single resource by ID.
      */
-    public static get<T extends typeof Model>(this: T, zone: ScalewayZone, id: string) {
+    // @ts-ignore
+    public static get<T>(this: T, zone: ScalewayZone, id: string): Promise<InstanceType<T>> {
+        // @ts-ignore
         return this.find(zone, id).then((response) => new this(response, zone));
     }
 
