@@ -104,6 +104,13 @@ class Model<T extends ModelDocument> {
     }
 
     /**
+     * Create a new resource using the current model entry.
+     */
+    public create() {
+        return this.client.post('/', this.entry);
+    }
+
+    /**
      * Register a has-many relationship between the current and given model.
      */
     protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
