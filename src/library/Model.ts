@@ -23,6 +23,13 @@ type Metadata = { [key: string]: any };
 class Model<T extends ModelDocument> {
 
     /**
+     * Fetch the given resource by path.
+     */
+    public static get(zone: ScalewayZone, id: string) {
+        return this.client(zone).get(id).then(({ data }) => data);
+    }
+
+    /**
      * Axios client for this Model.
      */
     protected static client(zone: ScalewayZone) {
@@ -80,10 +87,10 @@ class Model<T extends ModelDocument> {
     }
 
     /**
-     * Fetch the given resource by path.
+     * Delete the current resource.
      */
-    public static get(zone: ScalewayZone, id: string) {
-        return this.client(zone).get(id).then(({ data }) => data);
+    public delete() {
+        return this.client.delete('/');
     }
 
     /**
