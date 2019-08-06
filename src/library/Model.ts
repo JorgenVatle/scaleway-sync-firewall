@@ -9,7 +9,7 @@ class Model<T extends ModelDocument> {
     /**
      * Fetch the given resource by path.
      */
-    public static get(zone: ScalewayZone, id: string) {
+    public static find(zone: ScalewayZone, id: string) {
         return this.client(zone).get(id).then(({ data }) => data);
     }
 
@@ -98,7 +98,7 @@ class Model<T extends ModelDocument> {
      * Register a has-many relationship between the current and given model.
      */
     protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
-        return model.get(zone, path).then((documents) => {
+        return model.find(zone, path).then((documents) => {
             return documents[subKey].map((document: any) => new model(document, zone, meta));
         });
     }
