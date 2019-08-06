@@ -28,7 +28,7 @@ function targets(): Promise<SecurityGroup>[] {
  */
 async function syncGroups() {
     const primaryGroup = await SecurityGroup.get(<ScalewayZone>process.env.MASTER_ZONE, process.env.MASTER_ID!);
-    const primaryRules = await primaryGroup.rules;
+    const primaryRules = await primaryGroup.editableRules;
     const targetGroups = await Promise.all(targets());
 
     await Promise.all(targetGroups.map(async (group) => {
