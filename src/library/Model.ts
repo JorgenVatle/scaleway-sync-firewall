@@ -1,4 +1,9 @@
-export default abstract class Model<T> {
+import FirewallRuleInterface from './interfaces/FirewallRuleInterface';
+import SecurityGroupInterface from './interfaces/SecurityGroupInterface';
+
+type ModelDocument = FirewallRuleInterface | SecurityGroupInterface;
+
+export default abstract class Model<T extends ModelDocument> {
 
     /**
      * Data entry.
