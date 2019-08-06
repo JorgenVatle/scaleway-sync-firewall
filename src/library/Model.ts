@@ -15,7 +15,7 @@ type ScalewayZone = 'par-1' | 'ams-1';
 /**
  * Abstract Model foundation class.
  */
-abstract class Model<T extends ModelDocument> {
+class Model<T extends ModelDocument> {
 
     /**
      * Axios client for this Model instance.
@@ -51,6 +51,13 @@ abstract class Model<T extends ModelDocument> {
      */
     public static get(zone: ScalewayZone, id: string) {
         return this.client(zone).get(id).then(({ data }) => data);
+    }
+
+    /**
+     * Register a has-many relationship between the current and given model.
+     */
+    protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string): Promise<Array<InstanceType<T>>> {
+        return model.get(zone, path).then((documents) => documents[subKey].map((document: any) => new model(document)))
     }
 
 }
