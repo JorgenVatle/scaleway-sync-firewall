@@ -50,7 +50,7 @@ abstract class Model<T extends ModelDocument> {
      * Fetch the given resource by path.
      */
     public static get(zone: ScalewayZone, id: string) {
-        return this.client(zone).get(id).then(({ request }) => request);
+        return this.client(zone).get(id).then(({ data }) => data);
     }
 
 }
