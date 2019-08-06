@@ -113,8 +113,10 @@ class Model<T extends ModelDocument> {
      * Create a new resource using the current model entry.
      */
     public create() {
-        delete this.entry.id;
-        return this.client.post('/', this.entry);
+        const payload = {...this.entry};
+        delete payload.id;
+
+        return this.client.post('/', payload);
     }
 
     /**
