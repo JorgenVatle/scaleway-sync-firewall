@@ -25,7 +25,7 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
     /**
      * Firewall rules we can edit.
      */
-    public get editableRules() {
+    public get editableRules(): Promise<FirewallRule[]> {
         return this.rules.then((rules) => {
             return rules.filter((rule) => rule.entry.editable);
         });
