@@ -42,17 +42,6 @@ class Model<T extends ModelDocument> {
     };
 
     /**
-     * Axios client for this Model instance.
-     */
-    public get client(): AxiosInstance {
-        // @ts-ignore
-        const client = this.constructor.client(this.zone);
-        client.defaults.baseURL = this.path;
-
-        return client;
-    }
-
-    /**
      * Model service path.
      */
     public static path: string;
@@ -76,6 +65,17 @@ class Model<T extends ModelDocument> {
      * Model instance metadata.
      */
     protected meta: Metadata;
+
+    /**
+     * Axios client for this Model instance.
+     */
+    public get client(): AxiosInstance {
+        // @ts-ignore
+        const client = this.constructor.client(this.zone);
+        client.defaults.baseURL = this.path;
+
+        return client;
+    }
 
     /**
      * Model constructor.
