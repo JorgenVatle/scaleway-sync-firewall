@@ -4,6 +4,11 @@ import FirewallRuleInterface from './library/interfaces/FirewallRuleInterface';
 export default class FirewallRule extends PrepareModel<FirewallRuleInterface>('/security_groups') {
 
     /**
+     * Model response key.
+     */
+    public static readonly subKey = 'rules';
+
+    /**
      * Firewall rule metadata.
      */
     protected meta!: {

@@ -19,7 +19,7 @@ class Model<T extends ModelDocument> {
     // @ts-ignore
     public static get<T>(this: T, zone: ScalewayZone, id: string): Promise<InstanceType<T>> {
         // @ts-ignore
-        return this.find(zone, id).then((response) => new this(response, zone));
+        return this.find(zone, id).then((response) => new this(response[this.subKey], zone));
     }
 
     /**
@@ -38,6 +38,12 @@ class Model<T extends ModelDocument> {
      * Model service path.
      */
     public static path: string;
+
+    /**
+     * Sub-response key for this model.
+     * Responses include the key name of the model instead of just the model data.
+     */
+    public static readonly subKey: string;
 
     /**
      * Data entry.
@@ -106,9 +112,9 @@ class Model<T extends ModelDocument> {
     /**
      * Register a has-many relationship between the current and given model.
      */
-    protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
+    protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
         return model.find(zone, path).then((documents) => {
-            return documents[subKey].map((document: any) => new model(document, zone, meta));
+            return documents[model.subKey].map((document: any) => new model(document, zone, meta));
         });
     }
 

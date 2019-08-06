@@ -5,6 +5,11 @@ import FirewallRule from './FirewallRule';
 export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>('/security_groups') {
 
     /**
+     * Model response sub-key.
+     */
+   static subKey = 'security_group';
+
+    /**
      * A security group has many firewall rules.
      */
     public get rules(): Promise<FirewallRule[]> {
@@ -13,7 +18,6 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
             FirewallRule,
             this.zone,
             `${this.entry.id}/rules`,
-            'rules',
             { securityGroupId: this.entry.id }
             );
     }
