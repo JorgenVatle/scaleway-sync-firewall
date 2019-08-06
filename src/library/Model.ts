@@ -40,10 +40,16 @@ class Model<T extends ModelDocument> {
     public entry: T;
 
     /**
+     * Scaleway region/zone.
+     */
+    public zone: ScalewayZone;
+
+    /**
      * Model constructor.
      */
-    constructor(entry: T) {
+    constructor(entry: T, zone: ScalewayZone) {
         this.entry = entry;
+        this.zone = zone;
     }
 
     /**
@@ -57,7 +63,7 @@ class Model<T extends ModelDocument> {
      * Register a has-many relationship between the current and given model.
      */
     protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string): Promise<Array<InstanceType<T>>> {
-        return model.get(zone, path).then((documents) => documents[subKey].map((document: any) => new model(document)))
+        return model.get(zone, path).then((documents) => documents[subKey].map((document: any) => new model(document, zone)))
     }
 
 }
