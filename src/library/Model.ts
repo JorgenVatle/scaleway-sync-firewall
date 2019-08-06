@@ -1,11 +1,16 @@
 import FirewallRuleInterface from './interfaces/FirewallRuleInterface';
 import SecurityGroupInterface from './interfaces/SecurityGroupInterface';
-import { AxiosInstance } from 'axios';
+import Axios, { AxiosInstance } from 'axios';
 
 /**
  * Possible document types.
  */
 type ModelDocument = FirewallRuleInterface | SecurityGroupInterface;
+
+/**
+ * Scaleway Zone.
+ */
+type ScalewayZone = 'par-1' | 'ams-1';
 
 /**
  * Abstract Model foundation class.
@@ -15,7 +20,14 @@ abstract class Model<T extends ModelDocument> {
     /**
      * Axios client for this Model instance.
      */
-    protected static readonly client: AxiosInstance;
+    protected static client(zone: ScalewayZone) {
+        return Axios.create({
+            baseURL: `https://cp-${zone}.scaleway.com/${this.path.replace(/^\/+|\/$/, '')}`,
+            headers: {
+                'X-Auth-Token': process.env.AUTH_TOKEN,
+            }
+        })
+    };
 
     /**
      * Model service path.
@@ -37,8 +49,8 @@ abstract class Model<T extends ModelDocument> {
     /**
      * Fetch the given resource by path.
      */
-    public static get(id: string) {
-        return this.client.get(id).then(({ request }) => request);
+    public static get(zone: ScalewayZone, id: string) {
+        return this.client(zone).get(id).then(({ request }) => request);
     }
 
 }
