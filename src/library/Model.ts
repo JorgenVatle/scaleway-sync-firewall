@@ -1,21 +1,5 @@
-import FirewallRuleInterface from './interfaces/FirewallRuleInterface';
-import SecurityGroupInterface from './interfaces/SecurityGroupInterface';
 import Axios, { AxiosInstance } from 'axios';
-
-/**
- * Possible document types.
- */
-type ModelDocument = FirewallRuleInterface | SecurityGroupInterface;
-
-/**
- * Scaleway Zone.
- */
-type ScalewayZone = 'par-1' | 'ams-1';
-
-/**
- * Metadata.
- */
-type Metadata = { [key: string]: any };
+import { Metadata, ModelDocument, ScalewayZone } from './interfaces/Scaleway';
 
 /**
  * Abstract Model foundation class.
