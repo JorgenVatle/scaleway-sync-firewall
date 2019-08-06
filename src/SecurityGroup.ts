@@ -23,10 +23,19 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
     }
 
     /**
+     * Firewall rules we can edit.
+     */
+    public get editableRules() {
+        return this.rules.then((rules) => {
+            return rules.filter((rule) => rule.entry.editable);
+        });
+    }
+
+    /**
      * Clear all rules for the current security group.
      */
     public async clearRules() {
-        const rules = await this.rules;
+        const rules = await this.editableRules;
 
         return Promise.all(rules.map((rule) => {
             return rule.delete();
