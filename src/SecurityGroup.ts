@@ -1,7 +1,8 @@
-import Model from './library/Model';
+import PrepareModel from './library/Model';
 import SecurityGroupInterface from './library/interfaces/SecurityGroupInterface';
 
-export default class SecurityGroup extends Model<SecurityGroupInterface> {
+export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>('/security_groups') {
+
 
 
 }

@@ -6,12 +6,15 @@ import SecurityGroupInterface from './interfaces/SecurityGroupInterface';
  */
 type ModelDocument = FirewallRuleInterface | SecurityGroupInterface;
 
-export default abstract class Model<T extends ModelDocument> {
+/**
+ * Abstract Model foundation class.
+ */
+abstract class Model<T extends ModelDocument> {
 
     /**
-     * API service path for the current model.
+     * Model service path.
      */
-    protected abstract readonly path: string;
+    public static path: string;
 
     /**
      * Data entry.
@@ -26,3 +29,14 @@ export default abstract class Model<T extends ModelDocument> {
     }
 
 }
+
+/**
+ * Prepare a Model class for the given service path.
+ */
+export default function <T extends ModelDocument>(baseServicePath: string) {
+    abstract class PreparedModel extends Model<T> {
+        public static path = baseServicePath;
+    }
+
+    return PreparedModel;
+};
