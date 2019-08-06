@@ -1,6 +1,8 @@
 import SecurityGroup from './SecurityGroup';
 import { ScalewayZone } from './library/interfaces/Scaleway';
 
+require('dotenv-defaults').config();
+
 /**
  * Validate that all required environment variables are set.
  */
