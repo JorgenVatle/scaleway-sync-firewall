@@ -8,8 +8,14 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
      * A security group has many firewall rules.
      */
     public get rules(): Promise<FirewallRule[]> {
-        // @ts-ignore
-        return this.hasMany(FirewallRule, this.zone, `${this.entry.id}/rules`, 'rules');
+        return this.hasMany(
+            // @ts-ignore
+            FirewallRule,
+            this.zone,
+            `${this.entry.id}/rules`,
+            'rules',
+            { securityGroupId: this.entry.id }
+            );
     }
 
 }
