@@ -14,6 +14,13 @@ class Model<T extends ModelDocument> {
     }
 
     /**
+     * Fetch a single resource by ID.
+     */
+    public static get<T extends typeof Model>(this: T, zone: ScalewayZone, id: string) {
+        return this.find(zone, id).then((response) => new this(response, zone));
+    }
+
+    /**
      * Axios client for this Model.
      */
     protected static client(zone: ScalewayZone) {
