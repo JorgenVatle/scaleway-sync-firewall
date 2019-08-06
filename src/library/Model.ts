@@ -34,6 +34,13 @@ abstract class Model<T extends ModelDocument> {
         this.entry = entry;
     }
 
+    /**
+     * Fetch the given resource by path.
+     */
+    public static get(id: string) {
+        return this.client.get(id).then(({ request }) => request);
+    }
+
 }
 
 /**
