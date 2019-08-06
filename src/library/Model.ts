@@ -39,7 +39,10 @@ class Model<T extends ModelDocument> {
      */
     public get client(): AxiosInstance {
         // @ts-ignore
-        return this.constructor.client(this.zone);
+        const client = this.constructor.client(this.zone);
+        client.defaults.baseURL = this.path;
+
+        return client;
     }
 
     /**
