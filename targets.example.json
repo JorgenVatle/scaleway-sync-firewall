@@ -1,0 +1,14 @@
+[
+  {
+    "id": "74e535d6-d71c-4650-a1ba-91ab5366a4fa", // Security group ID
+    "zone": "ams1"                                // Security group zone
+  },
+  {
+    "id": "bfe04983-98c9-4bc1-be0a-32babdbf1324",
+    "zone": "par1"
+  },
+  {
+    "id": "8280ce9c-e475-444f-af72-6f561f2262c2",
+    "zone": "ams1"
+  }
+]
