@@ -18,4 +18,15 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
             );
     }
 
+    /**
+     * Clear all rules for the current security group.
+     */
+    public async clearRules() {
+        const rules = await this.rules;
+
+        return Promise.all(rules.map(async (rule) => {
+            return rule.delete();
+        }));
+    }
+
 }
