@@ -1,0 +1,24 @@
+{
+  "name": "scaleway-sync-firewall",
+  "version": "1.0.0",
+  "description": "Synchronize Scaleway Security Groups",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgenVatle/scaleway-sync-firewall.git"
+  },
+  "keywords": [
+    "Scaleway",
+    "Firewall",
+    "Sync"
+  ],
+  "author": "Jørgen <Jorgen@WcAServices.net> (https://github.com/JorgenVatle)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JorgenVatle/scaleway-sync-firewall/issues"
+  },
+  "homepage": "https://github.com/JorgenVatle/scaleway-sync-firewall#readme"
+}
