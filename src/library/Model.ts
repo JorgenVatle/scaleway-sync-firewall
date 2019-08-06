@@ -23,7 +23,7 @@ type Metadata = { [key: string]: any };
 class Model<T extends ModelDocument> {
 
     /**
-     * Axios client for this Model instance.
+     * Axios client for this Model.
      */
     protected static client(zone: ScalewayZone) {
         return Axios.create({
@@ -33,6 +33,14 @@ class Model<T extends ModelDocument> {
             }
         })
     };
+
+    /**
+     * Axios client for this Model instance.
+     */
+    public get client(): AxiosInstance {
+        // @ts-ignore
+        return this.constructor.client(this.zone);
+    }
 
     /**
      * Model service path.
