@@ -116,7 +116,7 @@ class Model<T extends ModelDocument> {
         const payload = {...this.entry};
         delete payload.id;
 
-        return this.client.post('/', payload);
+        return this.client.post('../', payload);
     }
 
     /**
