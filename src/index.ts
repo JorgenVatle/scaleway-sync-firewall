@@ -17,7 +17,7 @@ function validateEnvironmentVariables() {
 }
 
 function targets(): Promise<SecurityGroup>[] {
-    const targets = require('../targets.json');
+    const targets = require(`../${process.env.TARGET_GROUPS_JSON}`);
     return targets.map((target: { id: string, zone: ScalewayZone }) => {
         return SecurityGroup.get(target.zone, target.id);
     });
