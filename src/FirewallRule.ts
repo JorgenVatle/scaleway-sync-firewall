@@ -17,4 +17,11 @@ export default class FirewallRule extends PrepareModel<FirewallRuleInterface>('/
         return `${this.meta.securityGroupId}/rules/${this.entry.id}`;
     }
 
+    /**
+     * Delete the current firewall rule.
+     */
+    public delete() {
+        return this.client.delete('/');
+    }
+
 }
