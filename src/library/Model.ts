@@ -13,6 +13,11 @@ type ModelDocument = FirewallRuleInterface | SecurityGroupInterface;
 type ScalewayZone = 'par-1' | 'ams-1';
 
 /**
+ * Metadata.
+ */
+type Metadata = { [key: string]: any };
+
+/**
  * Abstract Model foundation class.
  */
 class Model<T extends ModelDocument> {
@@ -35,11 +40,6 @@ class Model<T extends ModelDocument> {
     public static path: string;
 
     /**
-     * Path for the current resource.
-     */
-    protected path?: string;
-
-    /**
      * Data entry.
      */
     public entry: T;
@@ -50,11 +50,22 @@ class Model<T extends ModelDocument> {
     public zone: ScalewayZone;
 
     /**
+     * Path for the current resource.
+     */
+    protected path?: string;
+
+    /**
+     * Model instance metadata.
+     */
+    protected meta: Metadata;
+
+    /**
      * Model constructor.
      */
-    constructor(entry: T, zone: ScalewayZone) {
+    constructor(entry: T, zone: ScalewayZone, meta?: Metadata) {
         this.entry = entry;
         this.zone = zone;
+        this.meta = meta || {};
     }
 
     /**
@@ -67,9 +78,9 @@ class Model<T extends ModelDocument> {
     /**
      * Register a has-many relationship between the current and given model.
      */
-    protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string): Promise<Array<InstanceType<T>>> {
+    protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
         return model.get(zone, path).then((documents) => {
-            return documents[subKey].map((document: any) => new model(document, zone));
+            return documents[subKey].map((document: any) => new model(document, zone, meta));
         });
     }
 
