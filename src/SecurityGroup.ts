@@ -29,4 +29,13 @@ export default class SecurityGroup extends PrepareModel<SecurityGroupInterface>(
         }));
     }
 
+    /**
+     * Add a list of rules to the current security group.
+     */
+    public addRules(rules: FirewallRule[]) {
+        return Promise.all(rules.map((rule) => {
+            return new FirewallRule(rule.entry, this.zone, { securityGroupId: this.entry.id }).create();
+        }));
+    }
+
 }
