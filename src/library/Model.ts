@@ -11,7 +11,7 @@ export default abstract class Model<T extends ModelDocument> {
     /**
      * Data entry.
      */
-    entry: T;
+    public entry: T;
 
     /**
      * Model constructor.
