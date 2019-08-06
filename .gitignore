@@ -64,3 +64,6 @@ typings/
 
 # TypeScript build output
 dist
+
+# Security group targets
+targets.json
