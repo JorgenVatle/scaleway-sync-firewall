@@ -94,6 +94,16 @@ class Model<T extends ModelDocument> {
     }
 
     /**
+     * Patch the current resource.
+     */
+    public patch(data: Partial<T>) {
+        return this.client.put('/', {
+            ...this.entry,
+            ...data,
+        });
+    }
+
+    /**
      * Register a has-many relationship between the current and given model.
      */
     protected hasMany<T extends typeof Model>(model: T, zone: ScalewayZone, path: string, subKey: string, meta?: Metadata): Promise<Array<InstanceType<T>>> {
