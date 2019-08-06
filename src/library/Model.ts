@@ -1,6 +1,12 @@
 import Axios, { AxiosInstance } from 'axios';
 import { Metadata, ModelDocument, ScalewayZone } from './interfaces/Scaleway';
 
+function baseUrl(zone: ScalewayZone, ...to: string[]) {
+    const path = to.join('/').replace(/\/{2,}/, '/');
+
+    return `https://cp-${zone}.scaleway.com/${path.replace(/^\/+|\/$/, '')}`;
+}
+
 /**
  * Abstract Model foundation class.
  */
@@ -27,7 +33,7 @@ class Model<T extends ModelDocument> {
      */
     protected static client(zone: ScalewayZone) {
         return Axios.create({
-            baseURL: `https://cp-${zone}.scaleway.com/${this.path.replace(/^\/+|\/$/, '')}`,
+            baseURL: baseUrl(zone, this.path),
             headers: {
                 'X-Auth-Token': process.env.AUTH_TOKEN,
             }
@@ -71,7 +77,8 @@ class Model<T extends ModelDocument> {
     public get client(): AxiosInstance {
         // @ts-ignore
         const client = this.constructor.client(this.zone);
-        client.defaults.baseURL = this.path;
+        // @ts-ignore
+        client.defaults.baseURL = baseUrl(this.zone, this.constructor.path, this.path!);
 
         return client;
     }
